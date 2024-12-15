@@ -46,6 +46,8 @@ for student in range(extraStudents):
 #If the ratio is more than 1 (which is) when adding one  up and down it raises the ratio. But after the first one, every other addition
 #is less significant. So after every one I add I ll check if I should add to a different one
 
+#i need to get the same results if i switch the classes
+
 
 print("averagem pass ratio is ",average_pass_ratio(classes))
 
