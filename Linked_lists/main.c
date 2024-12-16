@@ -76,10 +76,6 @@ int main() {
 }
 
 
-
-
-
-
 int give_inputs_manually() {
     int size1, size2;
 
