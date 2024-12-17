@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
 char *inputString(FILE* fp, size_t size){
 //The size is extended by the input with the value of the provisional
     char *str;
@@ -20,6 +22,10 @@ char *inputString(FILE* fp, size_t size){
     return realloc(str, sizeof(*str)*len);
 }
 
+int compareChars(const void *a, const void *b) {
+    return (*(char *)a - *(char *)b);
+}
+
 int main(void){
     char *m;
 
@@ -30,21 +36,46 @@ int main(void){
     int repeatLimit;
     scanf(" %i", &repeatLimit);
 
-    printf("starting %s\n", m);
-    int i;
-    int trigger = 0;
+
+    // Record the start time
+    clock_t start = clock();
+    
     int size = strlen(m);
-    for(i=0;i <size;i++){
-        for(int j=i+1;j<size;j++){
-            if(m[i]<m[j]){
-                char temp = m[i];
-                m[i] = m[j];
-                m[j] = temp;
+
+    printf("starting %s\n", m);
+    // Sort the string using qsort (much more efficient than bubble sort)
+    qsort(m, size, sizeof(char), compareChars);
+
+    printf("mid %s\n", m);
+    printf("sorted %s\n", m);
+
+    int trigger = 1;
+    for(int i=0;i <size;i++){
+        if(m[i]==m[i+1]){
+            trigger++;
+            if(trigger>repeatLimit){
+                int j = 1;
+                while(m[i+j] != '\0' && m[i]==m[i+j]){
+                    j++;
+                }
+                char temp = m[i+j];
+                m[i+j] = m[i+1];
+                m[i+1] = temp;
+                trigger = 0;
             }
         }
+        else{
+            trigger = 0;
+        }
     }
-    printf("final %s\n", m);
 
+    printf("final %s\n", m);
     free(m);
+    
+    // Record the end time
+    clock_t end = clock();
+    // Calculate the elapsed time
+    double time_taken = (double)(end - start) / CLOCKS_PER_SEC;
+    printf("Time taken: %f seconds\n", time_taken);
     return 0;
 }
