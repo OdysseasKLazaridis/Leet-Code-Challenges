@@ -3,3 +3,6 @@ You are given a 0-indexed 2D integer array pairs where pairs[i] = [starti, endi]
 Return any valid arrangement of pairs.
 
 Note: The inputs will be generated such that there exists a valid arrangement of pairs.
+
+Eulerian path
+https://www.youtube.com/watch?v=8MpoO2zA2l4
